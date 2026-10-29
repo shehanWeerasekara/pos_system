@@ -11,8 +11,7 @@ A full-stack, multi-tenant **Point of Sale (POS)** application built with **Java
 ---
 
 ## 📸 Screenshots
-
-> Add your screenshots to a `screenshots/` folder and update the paths below.
+(later)
 
 | Cashier Terminal | Branch Manager Dashboard | Store Admin Panel |
 |---|---|---|
