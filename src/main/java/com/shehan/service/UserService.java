@@ -10,6 +10,6 @@ public interface UserService {
     User getUserFromJwtToken(String token) throws UserException;
     User getCurrentUser() throws UserException;
     User getUserByEmail(String email) throws UserException;
-    User getUserById(long id);
+    User getUserById(long id) throws Exception;
     List<User> getAllUsers();
 }
