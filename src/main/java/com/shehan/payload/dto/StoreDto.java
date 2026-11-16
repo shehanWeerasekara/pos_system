@@ -2,11 +2,11 @@ package com.shehan.payload.dto;
 
 import com.shehan.domain.StoreStatus;
 import com.shehan.model.StoreContact;
-import com.shehan.model.User;
-import jakarta.persistence.*;
+import lombok.Data;
 
 import java.time.LocalDateTime;
 
+@Data
 public class StoreDto  {
 
     private long id;
