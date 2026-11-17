@@ -1,5 +1,6 @@
 package com.shehan.controller;
 
+import com.shehan.domain.StoreStatus;
 import com.shehan.exceptions.UserException;
 import com.shehan.mapper.StoreMapper;
 import com.shehan.model.User;
@@ -76,7 +77,17 @@ public class StoreController {
         return ResponseEntity.ok(storeService.updateStore(id, storeDto));
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/{id}/moderate")
+    public ResponseEntity<StoreDto> moderateStore(
+            @PathVariable
+            Long id,
+            @RequestParam
+            StoreStatus status
+    ) throws Exception {
+        return ResponseEntity.ok(storeService.moderateStore(id, status));
+    }
+
+    @GetMapping("/{id}")
     public ResponseEntity<ApiResponse> deleteStore(
             @PathVariable
             Long id

@@ -1,5 +1,6 @@
 package com.shehan.service.impl;
 
+import com.shehan.domain.StoreStatus;
 import com.shehan.exceptions.UserException;
 import com.shehan.mapper.StoreMapper;
 import com.shehan.model.Store;
@@ -104,5 +105,17 @@ public class StoreServiceImpl implements StoreService {
             throw new UserException("you don't have permission to access this store");
         }
         return StoreMapper.toDTO(currentUser.getStore());
+    }
+
+    @Override
+    public StoreDto moderateStore(Long id, StoreStatus status) throws Exception {
+
+        Store store = storeRepository.findById(id).orElseThrow(
+                () -> new Exception("Store not found")
+        );
+
+        store.setStatus(status);
+        Store updatedStore = storeRepository.save(store);
+        return StoreMapper.toDTO(updatedStore);
     }
 }
