@@ -16,7 +16,7 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/store")
+@RequestMapping("/api/stores")
 public class StoreController {
 
     private final StoreService storeService;
@@ -31,16 +31,6 @@ public class StoreController {
     ) throws UserException {
         User user = userService.getUserFromJwtToken(jwt);
         return ResponseEntity.ok(storeService.createStore(storeDto, user));
-    }
-
-    @GetMapping("/{id}")
-    public ResponseEntity<StoreDto> getStoreById(
-            @PathVariable
-            Long id,
-            @RequestHeader("Authorization")
-            String jwt
-    ) throws Exception {
-        return ResponseEntity.ok(storeService.getStoreById(id));
     }
 
     @GetMapping
@@ -88,6 +78,16 @@ public class StoreController {
     }
 
     @GetMapping("/{id}")
+    public ResponseEntity<StoreDto> getStoreById(
+            @PathVariable
+            Long id,
+            @RequestHeader("Authorization")
+            String jwt
+    ) throws Exception {
+        return ResponseEntity.ok(storeService.getStoreById(id));
+    }
+
+    @DeleteMapping("/{id}")
     public ResponseEntity<ApiResponse> deleteStore(
             @PathVariable
             Long id
