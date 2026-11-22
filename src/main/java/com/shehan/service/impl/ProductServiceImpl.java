@@ -11,6 +11,7 @@ import com.shehan.service.ProductService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -34,8 +35,22 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public ProductDto updateProduct(Long id, ProductDto productDto, User user) {
-        return null;
+    public ProductDto updateProduct(Long id, ProductDto productDto, User user) throws Exception {
+        Product product = productRepository.findById(id).orElseThrow(
+                () -> new Exception("product not found")
+        );
+
+        product.setName(productDto.getName());
+        product.setDescription(productDto.getDescription());
+        product.setSku(productDto.getSku());
+        product.setImage(productDto.getImage());
+        product.setMrp(productDto.getMrp());
+        product.setSellingPrice(productDto.getSellingPrice());
+        product.setBrand(productDto.getBrand());
+        product.setUpdatedAt(LocalDateTime.now());
+
+        Product saveProduct = productRepository.save(product);
+        return ProductMapper.toDto(saveProduct);
     }
 
     @Override
