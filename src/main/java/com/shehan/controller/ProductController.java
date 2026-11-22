@@ -2,6 +2,7 @@ package com.shehan.controller;
 
 import com.shehan.model.User;
 import com.shehan.payload.dto.ProductDto;
+import com.shehan.payload.response.ApiResponse;
 import com.shehan.service.ProductService;
 import com.shehan.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -65,6 +66,24 @@ public class ProductController {
                         user
                 )
         );
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<ApiResponse> delete(
+            @PathVariable
+            Long id,
+            @RequestHeader("Authorization")
+            String jwt
+    ) throws Exception {
+
+        User user = userService.getUserFromJwtToken(jwt);
+        productService.deleteProduct(
+                id,
+                user
+        );
+        ApiResponse apiResponse = new ApiResponse();
+        apiResponse.setMessage("product deleted successfully");
+        return ResponseEntity.ok(apiResponse);
     }
 }
 
