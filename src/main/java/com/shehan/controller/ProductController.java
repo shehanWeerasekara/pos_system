@@ -68,6 +68,23 @@ public class ProductController {
         );
     }
 
+    @GetMapping("/store/{storeId}/search")
+    public ResponseEntity<List<ProductDto>> searchByKeyword(
+            @PathVariable
+            Long storeId,
+            @RequestParam
+            String keyword,
+            @RequestHeader("Authorization")
+            String jwt
+    ) throws Exception {
+        return ResponseEntity.ok(
+                productService.searchByKeyword(
+                        storeId,
+                        keyword
+                )
+        );
+    }
+
     @DeleteMapping("/{id}")
     public ResponseEntity<ApiResponse> delete(
             @PathVariable
