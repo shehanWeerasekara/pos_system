@@ -6,7 +6,7 @@ import com.shehan.payload.dto.ProductDto;
 
 public class ProductMapper {
 
-    public ProductDto toDto(Product product) {
+    public static ProductDto toDto(Product product) {
         return ProductDto.builder()
                 .id(product.getId())
                 .name(product.getName())
@@ -23,7 +23,7 @@ public class ProductMapper {
         // categoryId
     }
 
-    public Product toEntity(ProductDto productDto, Store store) {
+    public static Product toEntity(ProductDto productDto, Store store) {
         return Product.builder()
                 .name(productDto.getName())
                 .sku(productDto.getSku())
