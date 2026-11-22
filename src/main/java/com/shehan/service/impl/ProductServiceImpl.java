@@ -74,26 +74,10 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public List<ProductDto> searchByKeyword(Long storeId, String keyword) {
-        return List.of();
+        List<Product> products = productRepository.searchByKeyword(storeId, keyword);
+        return products
+                .stream()
+                .map(ProductMapper::toDto)
+                .collect(Collectors.toList());
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
