@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -64,7 +65,11 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public List<ProductDto> getProductsByStoreId(Long storeId) {
-        return List.of();
+        List<Product> products = productRepository.findByStoreId(storeId);
+        return products
+                .stream()
+                .map(ProductMapper::toDto)
+                .collect(Collectors.toList());
     }
 
     @Override
