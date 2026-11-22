@@ -6,6 +6,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/products")
@@ -24,6 +26,18 @@ public class ProductController {
                 productService.createProduct(
                         productDto, null
                 )
+        );
+    }
+
+    @GetMapping("/store/{storeId}")
+    public ResponseEntity<List<ProductDto>> getByStoreId(
+            @PathVariable
+            Long storeId,
+            @RequestHeader("Authorization")
+            String jwt
+    ) throws Exception {
+        return ResponseEntity.ok(
+                productService.getProductsByStoreId(storeId)
         );
     }
 }
