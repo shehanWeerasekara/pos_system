@@ -10,5 +10,6 @@ public class CategoryDto {
 
     private Long id;
     private String name;
-    private Store store;
+//    private Store store;
+    private Long StoreId;
 }
