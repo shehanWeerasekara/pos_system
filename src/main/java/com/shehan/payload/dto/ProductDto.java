@@ -1,5 +1,6 @@
 package com.shehan.payload.dto;
 
+import com.shehan.model.Category;
 import lombok.Builder;
 import lombok.Data;
 
@@ -22,7 +23,7 @@ public class ProductDto {
     private String brand;
     private String image;
 
-    // private Category category;
+    private Category category;
 
     private Long categoryId;
 
