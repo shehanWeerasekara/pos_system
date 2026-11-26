@@ -1,5 +1,6 @@
 package com.shehan.mapper;
 
+import com.shehan.model.Category;
 import com.shehan.model.Product;
 import com.shehan.model.Store;
 import com.shehan.payload.dto.ProductDto;
@@ -23,9 +24,15 @@ public class ProductMapper {
         // categoryId
     }
 
-    public static Product toEntity(ProductDto productDto, Store store) {
+    public static Product toEntity(
+            ProductDto productDto,
+            Store store,
+            Category category
+    ) {
         return Product.builder()
                 .name(productDto.getName())
+                .store(store)
+                .category(category)
                 .sku(productDto.getSku())
                 .description(productDto.getDescription())
                 .mrp(productDto.getMrp())

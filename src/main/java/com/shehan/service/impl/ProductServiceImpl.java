@@ -1,10 +1,12 @@
 package com.shehan.service.impl;
 
 import com.shehan.mapper.ProductMapper;
+import com.shehan.model.Category;
 import com.shehan.model.Product;
 import com.shehan.model.Store;
 import com.shehan.model.User;
 import com.shehan.payload.dto.ProductDto;
+import com.shehan.repository.CategoryRepository;
 import com.shehan.repository.ProductRepository;
 import com.shehan.repository.StoreRepository;
 import com.shehan.service.ProductService;
@@ -21,6 +23,7 @@ public class ProductServiceImpl implements ProductService {
 
     private final ProductRepository productRepository;
     private final StoreRepository storeRepository;
+    private final CategoryRepository categoryRepository;
 
     @Override
     public ProductDto createProduct(ProductDto productDto, User user) throws Exception {
@@ -30,7 +33,11 @@ public class ProductServiceImpl implements ProductService {
                 () -> new Exception("store not found")
         );
 
-        Product product = ProductMapper.toEntity(productDto, store);
+        Category category = categoryRepository.findById(productDto.getCategoryId()).orElseThrow(
+                () -> new Exception("category not found")
+        );
+
+        Product product = ProductMapper.toEntity(productDto, store, category);
         Product saveProduct = productRepository.save(product);
         return ProductMapper.toDto(saveProduct);
     }
@@ -49,6 +56,14 @@ public class ProductServiceImpl implements ProductService {
         product.setSellingPrice(productDto.getSellingPrice());
         product.setBrand(productDto.getBrand());
         product.setUpdatedAt(LocalDateTime.now());
+
+        if (productDto.getCategoryId() != null) {
+            Category category = categoryRepository.findById(productDto.getCategoryId()).orElseThrow(
+                    () -> new Exception("category not found")
+            );
+
+            product.setCategory(category);
+        }
 
         Product saveProduct = productRepository.save(product);
         return ProductMapper.toDto(saveProduct);
