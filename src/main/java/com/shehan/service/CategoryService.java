@@ -1,6 +1,5 @@
 package com.shehan.service;
 
-import com.shehan.exceptions.UserException;
 import com.shehan.payload.dto.CategoryDto;
 
 import java.util.List;
